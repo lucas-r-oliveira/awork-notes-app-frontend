@@ -9,7 +9,7 @@ export default function Note({title, body}: NoteProps) {
 
 			<h2 className="text-xl font-bold">{title}</h2>
 			<span className="text-md py-3">{body}</span>
-			<div className="text-sm flex flex-row ">Footer</div>
+			{/* <div className="text-sm flex flex-row ">Footer</div> */}
 		</div>
 	);
 }
