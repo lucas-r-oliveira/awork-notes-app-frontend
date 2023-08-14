@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
-import { AiOutlinePlus } from 'react-icons/ai';
+import React, {useState} from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
+
+const URL = "http://localhost:5000";
 
 
-type Props = {
-	addNote: (title: string, body: string) => void
-}
-
-export default function NewNote({addNote}: Props) {
-	const [noteClicked, setNoteClicked] = useState(false);
-
-	const [noteTitle, setNoteTitle] = useState('');
-	const [noteBody, setNoteBody] = useState('');
+export default function UpdateNote() {
+	const { state } = useLocation()
+	const navigate = useNavigate();
+	const [noteId, setNoteId] = useState(state.id)
+	const [noteTitle, setNoteTitle] = useState(state.title);
+	const [noteBody, setNoteBody] = useState(state.body);
 
 
 	const handleTitleChange = (event: any) => {
@@ -21,30 +20,39 @@ export default function NewNote({addNote}: Props) {
 		setNoteBody(event.target.value);
 	}
 
-
+	const updateNote = async () => {
+		await fetch(
+			`${URL}/update/${noteId}`,
+			{
+				method:"PUT",
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({title: noteTitle, body: noteBody})
+			}
+		)
+		.then(response => navigate('/'))
+		.catch(e => console.error(e))
+	}
 
 	return (
-		noteClicked? 
+		<>
 			<div className="flex flex-col gap-2 p-4 bg-white border border-gray-200 rounded-lg shadow break-words">
-				<textarea 
+			<textarea 
 					className="text-xl font-bold resize-none border-none focus:outline-none" 
 					rows={1} 
-					placeholder='Title'
+					value={noteTitle}
 					onChange={handleTitleChange}
-				>
-					
-				</textarea>
+				></textarea>
 
 				<textarea 
 					id="message" 
 					rows={4} 
 					className="block p-2.5 w-full text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 resize-none focus:outline-none" 
-					placeholder="Write your note here..."
-					onChange={handleBodyChange}				
-				>
-
-				</textarea>
-
+					onChange={handleBodyChange}
+					value={noteBody}
+				></textarea>
 				<button 
 					type="button" 
 					className={
@@ -56,22 +64,13 @@ export default function NewNote({addNote}: Props) {
 							}
 						`
 					}
-					onClick={() => addNote(noteTitle, noteBody)}
+					onClick={updateNote}
 					disabled={!noteTitle || !noteBody}
 				>
 					Save
 				</button>
-
-
 			</div>
-			:
-			<button 
-				onClick={() => setNoteClicked(true)} 
-				className="border hover:bg-gray-200 text-gray-800 py-2 px-4 rounded inline-flex gap-2 items-center justify-center"
-			>
-				<AiOutlinePlus />
-				<span>New note</span>
-				
-			</button>
+			
+		</>
 	)
 }

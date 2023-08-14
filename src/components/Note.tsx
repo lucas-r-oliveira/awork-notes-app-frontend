@@ -1,4 +1,5 @@
 import { BiTrash } from 'react-icons/bi';
+import { Link } from "react-router-dom";
 
 type NoteProps = {
 	id: number,
@@ -9,9 +10,9 @@ type NoteProps = {
 
 }
 
-export default function Note({id, title, body, deleteNote }: NoteProps) {
+export default function Note({id, title, body, createdAt, deleteNote }: NoteProps) {
 	return (
-		<a href='#' className="flex flex-col gap-1 p-4 bg-white border border-gray-200 rounded-lg shadow break-words hover:bg-gray-100" >
+		<Link to={`${id}`} state={{id, title, body, createdAt}} className="flex flex-col gap-1 p-4 bg-white border border-gray-200 rounded-lg shadow break-words hover:bg-gray-100" >
 
 			<h2 className="text-xl font-bold">{title}</h2>
 			<span className="text-md py-3">{body}</span>
@@ -20,6 +21,6 @@ export default function Note({id, title, body, deleteNote }: NoteProps) {
 					<BiTrash className="hover:text-red-500"/>
 				</button>
 			</div>
-		</a>
+		</Link>
 	);
 }

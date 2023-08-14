@@ -9,7 +9,7 @@ type NoteType = {
 	id: number,
 	title: string,
 	body: string,
-	createdAt: any, //FIXME:
+	createdAt: any,
 }
 
 function App() {
