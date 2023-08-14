@@ -1,7 +1,7 @@
 import { BiTrash } from 'react-icons/bi';
 
 type NoteProps = {
-	id: any, //FIXME:
+	id: number,
 	title: string,
 	body: string,
 	createdAt: any, //FIXME:
@@ -11,7 +11,7 @@ type NoteProps = {
 
 export default function Note({id, title, body, deleteNote }: NoteProps) {
 	return (
-		<div className="flex flex-col gap-1 p-4 bg-white border border-gray-200 rounded-lg shadow break-words">
+		<a href='#' className="flex flex-col gap-1 p-4 bg-white border border-gray-200 rounded-lg shadow break-words hover:bg-gray-100" >
 
 			<h2 className="text-xl font-bold">{title}</h2>
 			<span className="text-md py-3">{body}</span>
@@ -20,6 +20,6 @@ export default function Note({id, title, body, deleteNote }: NoteProps) {
 					<BiTrash className="hover:text-red-500"/>
 				</button>
 			</div>
-		</div>
+		</a>
 	);
 }

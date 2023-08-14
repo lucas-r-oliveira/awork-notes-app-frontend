@@ -14,7 +14,7 @@ type Props = {
 export default function NotesList({notes, deleteNote}: Props) {
   return (
 	<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2'>
-		{ notes.map(note => <Note {...note} deleteNote={deleteNote}/> )}
+		{ notes.map(note => <Note key={note?.id} {...note} deleteNote={deleteNote}/> )}
 	</div>
   )
 }

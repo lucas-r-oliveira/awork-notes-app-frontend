@@ -45,7 +45,6 @@ export default function NewNote({addNote}: Props) {
 
 				</textarea>
 
-				
 				<button type="button" 
 					className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 
 					hover:bg-gradient-to-br focus:outline-none 
@@ -54,6 +53,7 @@ export default function NewNote({addNote}: Props) {
 				>
 					Save
 				</button>
+
 
 			</div>
 			:
