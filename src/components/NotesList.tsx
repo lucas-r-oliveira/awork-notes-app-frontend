@@ -1,4 +1,3 @@
-import React, { ReactNode } from 'react'
 import Note from './Note'
 
 type Props = {
@@ -6,15 +5,21 @@ type Props = {
 		id: number;
 		title: string;
 		body: string;
-		createdAt: null;
+		created_at: string;
 	}[],
-	deleteNote: (noteId: number) => void
+	deleteNote: (noteId: number) => void,
+	sortedAscending: boolean
 }
 
-export default function NotesList({notes, deleteNote}: Props) {
+export default function NotesList({notes, deleteNote, sortedAscending}: Props) {
   return (
 	<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2'>
-		{ notes.map(note => <Note key={note?.id} {...note} deleteNote={deleteNote}/> )}
+		{ notes.sort((a,b) =>{ 
+			if(sortedAscending) return a.id - b.id
+			else return b.id - a.id
+		}).map( note => {
+			return (<Note key={note?.id} {...note} created_at={new Date(note.created_at)} deleteNote={deleteNote}/>)
+		})}
 	</div>
   )
 }

@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.css';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider, } from "react-router-dom";
 import UpdateNote from './pages/UpdateNote.tsx';
+import CreateNote from './pages/CreateNote.tsx';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -28,7 +29,11 @@ const router = createBrowserRouter(
 				path="/:id"
 				element={<UpdateNote />}
 			>
-
+			</Route>
+			<Route
+				path="/new"
+				element={<CreateNote />}
+			>	
 			</Route>
 		</>
 		
