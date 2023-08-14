@@ -1,19 +1,51 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Note from "./components/Note";
 import NotesList from "./components/NotesList";
 import NewNote from "./components/NewNote";
 
 function App() {
+	//FIXME: id and createdAt
 	const [notes, setNotes] = useState([
-		<Note title="Title1" body="Hello I am note 1"/>,
-		<Note title="Title2" body="Hello I am note 2"/>,
-		<Note title="Title3" body="Hello I am note 3"/>,
-		<Note title="Title4" body="Hello I am note 4"/>
+		{
+			id: 0,
+			title: "Title1",
+			body: "Hello, I am note 1",
+			createdAt: null
+		},
+		{
+			id: 1,
+			title: "Title2",
+			body: "Hello, I am note 2",
+			createdAt: null
+		},
+		{
+			id: 2,
+			title: "Title3",
+			body: "Hello, I am note 3",
+			createdAt: null
+		},
+		{
+			id: 3,
+			title: "Title4",
+			body: "Hello, I am note 4",
+			createdAt: null
+		},
 	]) 
 
 	const addNote = (title: string, body: string) => {
-		if (title && body) setNotes(prevNotes => [...prevNotes, <Note title={title} body={body}/>])
+		//FIXME: id and createdAt
+		if (title && body) setNotes(prevNotes => [...prevNotes, {
+			id: notes.length,
+			title,
+			body,
+			createdAt: null
+		}])
 		//TODO: what happens if there is no title or body? => error
+	}
+
+	//FIXME: noteId should be a uuid
+	const deleteNote = (noteId: number) => {
+		setNotes(prevNotes => [...prevNotes.filter(n => n.id !== noteId)])
 	}
 
 	return (
@@ -23,9 +55,10 @@ function App() {
 				<NewNote addNote={addNote}/>
 
 			</div>
-			<NotesList>
-				{notes}
-			</NotesList>
+			<NotesList 
+				notes={notes}
+				deleteNote={deleteNote}
+			/>
 		</>
 	);
 }
